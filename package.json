@@ -22,6 +22,7 @@
 	"main": "src/index.js",
 	"scripts": {
 		"start": "node --env-file=.env .",
+		"deploy": "node --env-file=.env src/deploy-commands",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"dependencies": {
