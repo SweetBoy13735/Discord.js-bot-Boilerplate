@@ -7,7 +7,7 @@ module.exports = [js.configs.recommended, {
 		languageOptions: { ecmaVersion: "latest" },
 		rules: {
 			"arrow-spacing": ["warn", { before: true, after: true }],
-			"brace-style": ["error", "stroustrup", { allowSingleLine: true }],
+			"brace-style": ["error", "1tbs", { allowSingleLine: true }],
 			"comma-spacing": "error",
 			"comma-style": "error",
 			curly: ["error", "multi-line", "consistent"],
