@@ -34,4 +34,4 @@ Because this is my own boilerplate, I'm only open to small contributions. Please
 - Modules used: Listed in [package.json](https://GitHub.com/SweetBoy13735/Discord.js-bot-Boilerplate/blob/Main/package.json).
 
 ## [Licensing](https://GitHub.com/SweetBoy13735/Discord.js-bot-Boilerplate/blob/Main/LICENSE)
-This project is licensed under [License]. Please check out the link above for more info.
+This project is licensed under MIT. Please check out the link above for more info.
