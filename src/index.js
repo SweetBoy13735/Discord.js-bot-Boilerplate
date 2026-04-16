@@ -1,6 +1,6 @@
 //#region External module imports
 const FS = require("node:fs"), Path = require("node:path");
-const { Client, Collection, Events: { ClientReady, InteractionCreate }, GatewayIntentBits: { Guilds }, MessageFlags: { Ephemeral } } = require("discord.js");
+const { Client, Collection, GatewayIntentBits: { Guilds } } = require("discord.js");
 //#endregion
 
 //#region Code body
@@ -12,10 +12,10 @@ console.log("Registering commands...");
 
 client.commands = new Collection();
 
-const foldersPath = Path.join(__dirname, "commands"), commandFolders = FS.readdirSync(foldersPath);
+const commandFoldersPath = Path.join(__dirname, "commands"), commandFolders = FS.readdirSync(commandFoldersPath);
 
-for (const folder of commandFolders) {
-	const commandsPath = Path.join(foldersPath, folder), commandFiles = FS.readdirSync(commandsPath).filter(file => file.endsWith(".js"));
+for (const commandFolder of commandFolders) {
+	const commandsPath = Path.join(commandFoldersPath, commandFolder), commandFiles = FS.readdirSync(commandsPath).filter(file => file.endsWith(".js"));
 
 	for (const file of commandFiles) {
 		const filePath = Path.join(commandsPath, file), command = require(filePath);
@@ -27,38 +27,14 @@ for (const folder of commandFolders) {
 
 console.log("Registering events...");
 
-client.on(InteractionCreate,
-	/**
-	 * Callback to execute when the client recieves an interaction.
-	 * @param {import("discord.js").Interaction} interaction the interaction context created.
-	 */
-	async interaction => {
-		if (!interaction.isChatInputCommand()) return;
+const eventsPath = Path.join(__dirname, "events"), eventFiles = FS.readdirSync(eventsPath).filter(file => file.endsWith(".js"));
 
-		const command = interaction.client.commands.get(interaction.commandName);
+for (const file of eventFiles) {
+	const filePath = Path.join(eventsPath, file), event = require(filePath);
 
-		if (!command) {
-			console.error(`No command matching ${interaction.commandName} was found.`);
-
-			return;
-		}
-
-		try { await command.execute(interaction); } catch (error) {
-			console.error(error);
-
-			if (interaction.replied || interaction.deferred) await interaction.followUp({ content: "There was an error while executing this command!", flags: Ephemeral });
-			else await interaction.reply({ content: "There was an error while executing this command!", flags: Ephemeral });
-		}
-	}
-);
-
-client.once(ClientReady,
-	/**
-	 * Callback to execute when the client has logged into Discord.
-	 * @param {Client} readyClient The client instance that logged in.
-	 */
-	readyClient => { console.log(`Ready! Logged in as ${readyClient.user.tag}`); }
-);
+	if (event.once) client.once(event.name, (...args) => event.execute(...args));
+	else client.on(event.name, (...args) => event.execute(...args));
+}
 
 console.log("Logging into Discord...");
 

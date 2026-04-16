@@ -1,6 +1,9 @@
 //#region External module imports
 const FS = require("node:fs"), Path = require("node:path");
 const { REST, Routes } = require("discord.js");
+//#endregion
+
+//#region Internal module imports
 const { ID } = require("./config.json");
 //#endregion
 

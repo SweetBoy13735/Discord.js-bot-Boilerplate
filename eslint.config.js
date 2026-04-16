@@ -7,7 +7,7 @@ module.exports = [js.configs.recommended, {
 		languageOptions: { ecmaVersion: "latest" },
 		rules: {
 			"arrow-spacing": ["warn", { before: true, after: true }],
-			"brace-style": ["error", "1tbs", { allowSingleLine: true }],
+			"brace-style": ["error", { allowSingleLine: true }],
 			"comma-spacing": "error",
 			"comma-style": "error",
 			curly: ["error", "multi-line", "consistent"],
@@ -40,6 +40,7 @@ module.exports = [js.configs.recommended, {
 			"space-in-parens": "error",
 			"space-infix-ops": "error",
 			"space-unary-ops": "error",
+			"spaced-comment": ["error", "always", { "line": { "markers": ["#region", "#endregion"] } }],
 			yoda: "error"
 		}
 }];
