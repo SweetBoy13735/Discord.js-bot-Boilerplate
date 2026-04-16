@@ -11,6 +11,7 @@ const client = new Client({ intents: [Guilds] });
 console.log("Registering commands...");
 
 client.commands = new Collection();
+client.cooldowns = new Collection();
 
 const commandFoldersPath = Path.join(__dirname, "commands"), commandFolders = FS.readdirSync(commandFoldersPath);
 
