@@ -1,0 +1,14 @@
+{
+	"version": "0.2.0",
+	"configurations": [{
+			"name": "Start Discord.JS bot",
+			"request": "launch",
+			"type": "node-terminal",
+			"command": "npm start"
+		}, {
+			"name": "Deploy commands",
+			"request": "launch",
+			"type": "node-terminal",
+			"command": "npm run deploy"
+	}]
+}

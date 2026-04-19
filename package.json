@@ -1,0 +1,35 @@
+{
+	"name": "discord.js-bot-boilerplate",
+	"version": "1.0.0",
+	"description": "A template for building Discord bots using Discord.js.",
+	"private": true,
+	"keywords": [
+		"Discord",
+		"bot",
+		"Discord.js"
+	],
+	"homepage": "https://github.com/SweetBoy13735/Discord.js-bot-Boilerplate#readme",
+	"bugs": {
+		"url": "https://github.com/SweetBoy13735/Discord.js-bot-Boilerplate/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/SweetBoy13735/Discord.js-bot-Boilerplate.git"
+	},
+	"license": "MIT",
+	"author": "Ramone R. A. Graham",
+	"type": "commonjs",
+	"main": "src/index.js",
+	"scripts": {
+		"start": "node --env-file=.env .",
+		"deploy": "node --env-file=.env src/deploy-commands",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"dependencies": {
+		"discord.js": "^14.26.3"
+	},
+	"devDependencies": {
+		"@eslint/js": "^10.0.1",
+		"eslint": "^10.2.0"
+	}
+}
