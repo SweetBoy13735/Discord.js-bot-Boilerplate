@@ -15,9 +15,11 @@ module.exports = {
 		const command = interaction.client.commands.get(interaction.commandName);
 
 		if (!command) {
-			console.error(`No command matching ${interaction.commandName} was found.`);
+			const errorMessage = `No command matching "${interaction.commandName}" was found.`;
 
-			return;
+			console.error(errorMessage);
+
+			return interaction.reply({ content: errorMessage.replaceAll('"', "`"), flags: Ephemeral });
 		}
 
 		if (command.cooldown) {
@@ -36,7 +38,7 @@ module.exports = {
 
 			timestamps.set(interaction.user.id, now);
 
-			setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
+			setTimeout(() => { timestamps.delete(interaction.user.id); }, cooldownAmount);
 		}
 
 		try { await command.execute(interaction); } catch (error) {
