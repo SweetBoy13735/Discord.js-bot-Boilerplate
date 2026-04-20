@@ -15,11 +15,11 @@ module.exports = {
 		const command = interaction.client.commands.get(interaction.commandName);
 
 		if (!command) {
-			const errorMessage = `No command matching "${interaction.commandName}" was found.`;
+			const message = `No command matching "${interaction.commandName}" was found.`; 
 
-			console.error(errorMessage);
+			console.error(message);
 
-			return interaction.reply({ content: errorMessage.replaceAll('"', "`"), flags: Ephemeral });
+			return interaction.reply({ content: message.replaceAll('"', "`"), flags: Ephemeral });
 		}
 
 		if (command.cooldown) {
@@ -27,8 +27,7 @@ module.exports = {
 
 			if (!cooldowns.has(command.data.name)) cooldowns.set(command.data.name, new Collection());
 
-			const timestamps = cooldowns.get(command.data.name);
-			const now = Date.now(), cooldownAmount = command.cooldown * 1_000;
+			const now = Date.now(), cooldownAmount = command.cooldown * 1_000, timestamps = cooldowns.get(command.data.name);
 
 			if (timestamps.has(interaction.user.id)) {
 				const expirationTime = timestamps.get(interaction.user.id) + cooldownAmount;
