@@ -4,7 +4,7 @@ const { REST, Routes } = require("discord.js");
 //#endregion
 
 //#region Internal module imports
-const { ID } = require("./config.json");
+const { ID } = require("./Config.json");
 //#endregion
 
 //#region Code body
