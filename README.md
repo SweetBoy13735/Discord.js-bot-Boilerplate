@@ -4,19 +4,19 @@
 This is my custom [Discord.js](https://Discord.JS.org) bot Boilerplate; based off the [Official Guide](https://DiscordJS.Guide), modified to my personal liking.
 
 ## Installation
-To set up the boilerplate, you can either:
+To install the boilerplate, you can either:
 - Generate a repository using the template.
 - Download a release.
 
+**NOTE:** This project documentation will also be bundled, so make sure to modify/remove it as required.
+
 ### Generating the repository
 1. Click "Use this template".
-2. Select your option of choice.
+2. Follow the steps as you see fit.
 
-### Download a release
+### Downloading a release
 1. Select a release from the "releases" pane.
 2. Download any of the "Source code" assets and extract the files to a directory of your choice.
-
-And that's it, you're free to use the boilerplate as you wish (**NOTE:** The project documentation will also be bundled, so make sure to modify it)!
 
 ## Support
 If you encounter any odd behaviour, please feel free to [create an issue](https://GitHub.com/SweetBoy13735/Discord.js-bot-Boilerplate/issues) or [E-Mail me](mailto:Ramone@SweetBoy13735.Me.UK).
