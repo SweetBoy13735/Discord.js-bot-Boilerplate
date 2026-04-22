@@ -15,11 +15,11 @@ module.exports = {
 		const command = interaction.client.commands.get(interaction.commandName);
 
 		if (!command) {
-			const message = `No command matching "${interaction.commandName}" was found.`; 
+			const message = `No command matching "${interaction.commandName}" was found.`;
 
 			console.error(message);
 
-			return interaction.reply({ content: message.replaceAll('"', "`"), flags: Ephemeral });
+			return interaction.reply({ content: message.replaceAll("\"", "`"), flags: Ephemeral });
 		}
 
 		if (command.cooldown) {

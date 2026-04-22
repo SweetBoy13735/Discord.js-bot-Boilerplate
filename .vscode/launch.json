@@ -1,7 +1,7 @@
 {
 	"version": "0.2.0",
 	"configurations": [{
-			"name": "Start Discord.JS bot",
+			"name": "Start bot",
 			"request": "launch",
 			"type": "node-terminal",
 			"command": "npm start"
@@ -10,5 +10,10 @@
 			"request": "launch",
 			"type": "node-terminal",
 			"command": "npm run deploy"
+		}, {
+			"name": "Run linter",
+			"request": "launch",
+			"type": "node-terminal",
+			"command": "npm run lint"
 	}]
 }
