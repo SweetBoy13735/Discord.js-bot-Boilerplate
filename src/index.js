@@ -8,7 +8,7 @@ if (!process.env.DISCORD_TOKEN) throw new Error("Discord token not found in .env
 
 const client = new Client({ intents: [Guilds] });
 
-console.log("Registering commands...");
+console.log("Loading commands...");
 
 client.commands = new Collection();
 client.cooldowns = new Collection();
@@ -26,7 +26,7 @@ for (const commandFolder of commandFolders) {
 	}
 }
 
-console.log("Registering events...");
+console.log("Loading events...");
 
 const eventsPath = Path.join(__dirname, "events"), eventFiles = FileSystem.readdirSync(eventsPath).filter(file => file.endsWith(".js"));
 
