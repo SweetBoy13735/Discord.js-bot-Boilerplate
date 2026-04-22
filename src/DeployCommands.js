@@ -1,10 +1,10 @@
 //#region External module imports
-const FS = require("node:fs"), Path = require("node:path");
+const FileSystem = require("node:fs"), Path = require("node:path");
 const { REST, Routes } = require("discord.js");
 //#endregion
 
 //#region Internal module imports
-const { ID } = require("./Config.json");
+const { guildIDs } = require("./Config.json");
 //#endregion
 
 //#region Code body
@@ -12,20 +12,12 @@ if (!process.env.DISCORD_TOKEN) throw new Error("Discord token not found in .env
 
 const rest = new REST().setToken(process.env.DISCORD_TOKEN);
 
-async function deployCommands() {
-	try {
-		const data = await rest.put(Routes.applicationGuildCommands(ID.client, ID.guild), { body: commands });
+console.log("Loading commands...");
 
-		console.log(`Deployed ${data.length} command(s) successfully!`);
-	} catch (error) { console.error(error); }
-}
-
-console.log("Registering commands...");
-
-const commands = [], foldersPath = Path.join(__dirname, "commands"), commandFolders = FS.readdirSync(foldersPath);
+const commands = [], foldersPath = Path.join(__dirname, "commands"), commandFolders = FileSystem.readdirSync(foldersPath);
 
 for (const folder of commandFolders) {
-	const commandsPath = Path.join(foldersPath, folder), commandFiles = FS.readdirSync(commandsPath).filter(file => file.endsWith(".js"));
+	const commandsPath = Path.join(foldersPath, folder), commandFiles = FileSystem.readdirSync(commandsPath).filter(file => file.endsWith(".js"));
 
 	for (const file of commandFiles) {
 		const filePath = Path.join(commandsPath, file), command = require(filePath);
@@ -35,7 +27,32 @@ for (const folder of commandFolders) {
 	}
 }
 
-console.log(`Deploying ${commands.length} command(s)...`);
+/**
+ * Deploys the application commands to Discord.
+ */
+async function deployCommands() {
+	console.log(`Deploying ${commands.length} command(s)...`);
+
+	try {
+		const { id: clientID, username } = await rest.get(Routes.user());
+
+		if (guildIDs.length) {
+			guildIDs.forEach(async guildID => {
+				console.log(`Deploying to Guild ${guildID}...`);
+
+				const data = await rest.put(Routes.applicationGuildCommands(clientID, guildID), { body: commands });
+
+				console.log(`Deployed ${data.length} command(s) to Guild ${guildID}!`);
+			});
+		} else {
+			console.log(`Deploying to ${username}...`);
+
+			const data = await rest.put(Routes.applicationCommands(clientID), { body: commands });
+
+			console.log(`Deployed ${data.length} command(s) successfully!`);
+		}
+	} catch (error) { console.error(`An error occured whilst deploying commands to Discord. ${error.stack}`); }
+}
 
 deployCommands();
 //#endregion

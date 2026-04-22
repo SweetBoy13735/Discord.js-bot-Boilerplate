@@ -1,5 +1,5 @@
 //#region External module imports
-const FS = require("node:fs"), Path = require("node:path");
+const FileSystem = require("node:fs"), Path = require("node:path");
 const { Client, Collection, GatewayIntentBits: { Guilds } } = require("discord.js");
 //#endregion
 
@@ -8,15 +8,15 @@ if (!process.env.DISCORD_TOKEN) throw new Error("Discord token not found in .env
 
 const client = new Client({ intents: [Guilds] });
 
-console.log("Registering commands...");
+console.log("Loading commands...");
 
 client.commands = new Collection();
 client.cooldowns = new Collection();
 
-const commandFoldersPath = Path.join(__dirname, "commands"), commandFolders = FS.readdirSync(commandFoldersPath);
+const commandFoldersPath = Path.join(__dirname, "commands"), commandFolders = FileSystem.readdirSync(commandFoldersPath);
 
 for (const commandFolder of commandFolders) {
-	const commandsPath = Path.join(commandFoldersPath, commandFolder), commandFiles = FS.readdirSync(commandsPath).filter(file => file.endsWith(".js"));
+	const commandsPath = Path.join(commandFoldersPath, commandFolder), commandFiles = FileSystem.readdirSync(commandsPath).filter(file => file.endsWith(".js"));
 
 	for (const file of commandFiles) {
 		const filePath = Path.join(commandsPath, file), command = require(filePath);
@@ -26,9 +26,9 @@ for (const commandFolder of commandFolders) {
 	}
 }
 
-console.log("Registering events...");
+console.log("Loading events...");
 
-const eventsPath = Path.join(__dirname, "events"), eventFiles = FS.readdirSync(eventsPath).filter(file => file.endsWith(".js"));
+const eventsPath = Path.join(__dirname, "events"), eventFiles = FileSystem.readdirSync(eventsPath).filter(file => file.endsWith(".js"));
 
 for (const file of eventFiles) {
 	const filePath = Path.join(eventsPath, file), event = require(filePath);

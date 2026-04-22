@@ -15,11 +15,11 @@ module.exports = {
 		const command = interaction.client.commands.get(interaction.commandName);
 
 		if (!command) {
-			const message = `No command matching "${interaction.commandName}" was found.`; 
+			const message = `No command matching "${interaction.commandName}" was found.`;
 
-			console.error(message);
+			console.warn(message);
 
-			return interaction.reply({ content: message.replaceAll('"', "`"), flags: Ephemeral });
+			return interaction.reply({ content: message.replaceAll("\"", "`"), flags: Ephemeral });
 		}
 
 		if (command.cooldown) {
@@ -41,10 +41,12 @@ module.exports = {
 		}
 
 		try { await command.execute(interaction); } catch (error) {
-			console.error(error);
+			const content = "An error whilst executing the command.";
 
-			if (interaction.replied || interaction.deferred) await interaction.followUp({ content: "There was an error while executing this command!", flags: Ephemeral });
-			else await interaction.reply({ content: "There was an error while executing this command!", flags: Ephemeral });
+			console.error(`${content.replace("the", "a")} ${error.stack}`);
+
+			if (interaction.replied || interaction.deferred) await interaction.followUp({ content, flags: Ephemeral });
+			else await interaction.reply({ content, flags: Ephemeral });
 		}
 	}
 };
