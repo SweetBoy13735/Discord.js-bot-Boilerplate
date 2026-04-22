@@ -1,6 +1,6 @@
 {
 	"name": "discord.js-bot-boilerplate",
-	"version": "1.0.1",
+	"version": "1.1.0",
 	"description": "A template for building Discord bots using Discord.js.",
 	"private": true,
 	"keywords": [
