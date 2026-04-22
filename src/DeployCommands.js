@@ -51,7 +51,7 @@ async function deployCommands() {
 
 			console.log(`Deployed ${data.length} command(s) successfully!`);
 		}
-	} catch (error) { console.error(error); }
+	} catch (error) { console.error(`An error occured whilst deploying commands to Discord. ${error.stack}`); }
 }
 
 deployCommands();
