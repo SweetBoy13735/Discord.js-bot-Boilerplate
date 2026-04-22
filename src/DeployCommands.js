@@ -1,5 +1,5 @@
 //#region External module imports
-const FS = require("node:fs"), Path = require("node:path");
+const FileSystem = require("node:fs"), Path = require("node:path");
 const { REST, Routes } = require("discord.js");
 //#endregion
 
@@ -22,10 +22,10 @@ async function deployCommands() {
 
 console.log("Registering commands...");
 
-const commands = [], foldersPath = Path.join(__dirname, "commands"), commandFolders = FS.readdirSync(foldersPath);
+const commands = [], foldersPath = Path.join(__dirname, "commands"), commandFolders = FileSystem.readdirSync(foldersPath);
 
 for (const folder of commandFolders) {
-	const commandsPath = Path.join(foldersPath, folder), commandFiles = FS.readdirSync(commandsPath).filter(file => file.endsWith(".js"));
+	const commandsPath = Path.join(foldersPath, folder), commandFiles = FileSystem.readdirSync(commandsPath).filter(file => file.endsWith(".js"));
 
 	for (const file of commandFiles) {
 		const filePath = Path.join(commandsPath, file), command = require(filePath);
